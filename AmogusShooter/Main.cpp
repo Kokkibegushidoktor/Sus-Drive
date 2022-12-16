@@ -24,6 +24,10 @@ int main(void)
     Sound pickup = LoadSound("assets/sfx/pickup.wav");
     Sound collision = LoadSound("assets/sfx/collision.wav");
     
+    Music music = LoadMusicStream("assets/sfx/music.xm");
+    music.looping = true;
+    SetMusicVolume(music, 0.3f);
+    PlayMusicStream(music);
 
 	int score = 0;
     bool gameOver = false;
@@ -96,7 +100,7 @@ int main(void)
         // Update
         //----------------------------------------------------------------------------------
         UpdateCamera(&camera);
-
+        UpdateMusicStream(music);
         car.Update();
 
         if (IsKeyPressed(KEY_RIGHT)) {
@@ -157,7 +161,7 @@ int main(void)
         }
         //spawn bonuses
         if (spawnTimerBonus < 1 && currentBonuses < MAX_BONUSES) {
-            bonuses.emplace_back(bonus, Vector3{ 0.0f + 4.5f * GetRandomValue(-1,1),0.0f, -250.0f });
+            bonuses.emplace_back(bonus, Vector3{ 0.0f + 4.5f * GetRandomValue(-1,1),2.0f, -250.0f });
             spawnTimerBonus = 40 + GetRandomValue(-10, 40);
             currentBonuses++;
         }
@@ -239,6 +243,7 @@ int main(void)
     UnloadShader(shaders[1]);
     UnloadSound(pickup);
     UnloadSound(collision);
+    UnloadMusicStream(music);
     CloseAudioDevice();
     CloseWindow();
 	return 0;

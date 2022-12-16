@@ -14,7 +14,7 @@ void Bonus::Update()
 {
 	static float rotato = 0;
 	static float rotatoSpd = 0.03f;
-	if (pos.y>3||pos.y<0) spd.y = -spd.y;
+	if (pos.y>4||pos.y<1) spd.y = -spd.y;
 	rotato += rotatoSpd;
 	if (rotato > 6.28) rotato = 0;
 	mod.transform = MatrixRotateY(rotato);
