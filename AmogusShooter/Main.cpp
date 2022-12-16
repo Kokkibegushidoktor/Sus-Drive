@@ -101,6 +101,16 @@ int main(void)
         //----------------------------------------------------------------------------------
         UpdateCamera(&camera);
         UpdateMusicStream(music);
+	//game over screen
+        if (gameOver)
+        {
+            BeginDrawing();
+            ClearBackground(BLACK);
+            DrawText("YOU ARE DEAD", 340, 260, 70, MAROON);
+            DrawText(TextFormat("Your Score: %i", score), 400, 330, 40, WHITE);
+            EndDrawing();
+            continue;
+        }
         car.Update();
 
         if (IsKeyPressed(KEY_RIGHT)) {
@@ -134,16 +144,7 @@ int main(void)
         }
         if (GetRandomValue(0, 1)) spawnTimer--;
 
-        //game over screen
-        if (gameOver)
-        {
-            BeginDrawing();
-            ClearBackground(BLACK);
-            DrawText("YOU ARE DEAD", 340, 260, 70, MAROON);
-            DrawText(TextFormat("Your Score: %i", score), 400, 330, 40, WHITE);
-            EndDrawing();
-            continue;
-        }
+        
         //update bonuses
         for (int i = 0; i < currentBonuses; i++) {
             bonuses[i].Update();
